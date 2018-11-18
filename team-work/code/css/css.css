@@ -1,0 +1,365 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    background-color: #F5F5F5;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    color: #4a4a4a;
+}
+
+header {
+    z-index: 1;
+    top: 0;
+    width: 100%;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    height: 50px;
+    background-color: rgba(255,255,255,0.8);
+    border-bottom:5px  solid orange;
+}
+
+header nav a {
+    display: inline-block;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 18px;
+    background: white;
+    transition: 1s;
+    border-radius: 5px;
+    border: 2px #ffcc00 solid;
+}
+
+header nav a:hover {
+    border-radius: 0;
+    border: 2px #e3003b solid;
+}
+
+main {
+    width: 960px;
+    margin: 0 auto;
+}
+
+#hero {
+    margin-top: 70px;
+    height: 100%;
+    background: url("hero.jpg") no-repeat center;
+    background-size: cover;
+    position: relative;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+#hero div {
+    padding: 10px;
+}
+
+#hero_text {
+    font-size: 50px;
+    background: rgba(230, 220, 20, 0.9);
+    padding: 10px 30px 10px 30px;
+    border: 5px solid white;
+}
+
+.flex {
+    display: flex;
+}
+
+.flex-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.flex-wrap a {
+    text-decoration: blue underline;
+    color:blue;
+}
+
+.full-width-wrapper {
+    width: 960px;
+    margin: 0 auto;
+}
+
+footer {
+    margin-top: 3%;
+    margin-bottom: 2%;
+}
+
+.card {
+    text-align: left;
+    width: 280px;
+    min-height: 100px;
+    padding: 10px;
+    margin: 5px;
+}
+
+.card > hr {
+    border: 1px solid orange;
+}
+
+.card > img {
+    height: 170px;
+    max-width: 80%;
+    padding: auto;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.card > h2 {
+    margin: 5px;
+}
+
+.card > p {
+    width: 100%;
+    min-height: 25%;
+    color: black;
+    padding: 10px;
+    text-align: justify;
+    display: inline-block;
+    font-size: 16px;
+    transition: 1s;
+    border-bottom: 1px solid #ffcc00;
+    border-top: 1px solid #ffcc00;
+}
+
+.card > a:hover {
+    background-color: rgba(204, 208, 205, 0.7);
+    color: #333;
+}
+
+.margin_top {
+    margin: 90px auto 40px auto;
+    text-align: center;
+    background: rgba(230, 220, 20, 0.9);
+    border: 5px solid white;
+    width: 40%;
+}
+
+.align_center {
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 10px;
+}
+
+.right {
+    margin-left: 10%;
+    margin-top: 3%;
+    margin-bottom: 3%;
+}
+
+.left {
+    margin-top: 3%;
+    margin-bottom: 3%;
+    width: 90%;
+}
+
+.img_info {
+    display:inline-flex;
+    min-height: 150px;
+}
+
+.info_r {
+    margin-top: auto;
+    margin-bottom: auto;
+    vertical-align: center;
+    text-align: justify;
+    width: 50%;
+    border-right: 5px solid #ffcc00;
+    background-color: whitesmoke;
+    padding: 2%;
+}
+
+.info_l {
+    margin-top: auto;
+    margin-bottom: auto;
+    vertical-align: center;
+    text-align: justify;
+    width: 50%;
+    padding: 2%;
+    border-left: 5px solid #ffcc00;
+    background-color: whitesmoke;
+}
+
+.info_img {
+    width: 40%;
+    margin-right: auto;
+    margin-left: auto;
+    transition: ease-in-out .2s;
+}
+
+.info_img:hover {
+    transform: scale(1.3);
+}
+
+.info_img > img{
+    max-width: 90%;
+    display: block;
+    margin: auto;
+    border-radius: 5px;
+}
+
+.inline {
+    display: inline-flex;
+    width: 100%;
+}
+
+#znak_img {
+    width: 150px;
+    height: 180px;
+    transition: ease-in-out .2s;
+}
+
+#znak_img:hover {
+    transform: scale(1.4);
+}
+
+.delete_btn {
+    transition: ease-in-out .2s;
+    background: red;
+}
+
+.update_btn {
+    transition: ease-in-out .2s;
+    background: green;
+}
+
+.delete_btn:hover {
+    background-color: darkred;
+}
+
+.update_btn:hover {
+    background-color: #004400;
+}
+
+.no_border {
+    border: none;
+}
+
+.table_vypis {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    width: 80%;
+    border: 0;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+.table_vypis tr{
+    line-height: 30px;
+}
+
+.table_vypis th {
+    border-bottom: 3px solid black;
+}
+
+.td_upravit {
+    text-align: left;
+    width: 150px;
+    background-color: #F5F5F5;
+}
+
+.td_upravit a {
+    margin-left: 5px;
+    color: white;
+    text-align: center;
+    padding: 5px 10px;
+    text-decoration: none;
+    font-size: 15px;
+    border-radius: 5px;
+}
+
+.background_gray {
+    background-color: gainsboro;
+    padding: 0;
+}
+
+.background_white {
+    padding: 0;
+}
+
+.form_align {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.program_align {
+    margin: 20px auto 10px auto;
+    display: inline-flex;
+    background-color: rgb(230, 220, 20);
+    border-radius: 20px;
+    padding: 20px;
+}
+
+/*
+https://www.jakpsatweb.cz/css/box-shadow.html
+ */
+.program_img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    box-shadow: -8px -8px 2px 2px rgba(0, 0, 0, 0.4);
+}
+
+.program_img_div {
+    margin-right: 20px;
+    width: 200px;
+    height: 300px;
+}
+
+.program_popis_div {
+    width: 450px;
+    height: 300px;
+    background-color: #F5F5F5;
+    border-radius: 20px;
+}
+
+.program_popis_div ul li {
+    font-size: 110%;
+    list-style: none;
+}
+
+.login_form {
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 30px;
+}
+
+.login_form input {
+    margin-bottom: 5px;
+    padding: 5px;
+}
+
+.add_btn_div {
+    transition: ease-in-out .2s;
+    background-color: orange;
+    border-radius: 5px;
+    width: 30px;
+    height: 30px;
+    margin-left: 10%;
+    font-size: 28px;
+    text-align: center;
+    color: white;
+}
+
+.add_btn_div a {
+    text-decoration: none;
+    color: white;
+}
+
+.add_btn_div:hover {
+    background-color: darkorange;
+}

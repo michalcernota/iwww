@@ -3,7 +3,7 @@ $errorFeedbacks = array();
 $successFeedback = "";
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (empty($_POST["nazev"])) {
-        $feedbackMessage = "Nebylo zadán název filmu.";
+        $feedbackMessage = "Nebyl zadán název filmu.";
         array_push($errorFeedbacks, $feedbackMessage);
     }
 
@@ -18,17 +18,30 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     if (empty($errorFeedbacks)) {
-        //success
         $conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME, DB_USER, DB_PASSWORD);
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        $stmt = $conn->prepare("UPDATE film SET nazev = :nazev, reziser = :reziser,
- rok_vydani = :rok_vydani WHERE id=:id");
-        $stmt->bindParam(':id', $_GET["id"]);
-        $stmt->bindParam(':nazev', $_POST["nazev"]);
-        $stmt->bindParam(':reziser', $_POST["reziser"]);
-        $stmt->bindParam(':rok_vydani', $_POST["rok_vydani"]);
-        $stmt->execute();
+        if ($_FILES["img"]["size"] == 0) {
+            $stmt = $conn->prepare("UPDATE film SET nazev = :nazev, reziser = :reziser,
+ rok_vydani = :rok_vydani, popisek_filmu = :popis WHERE id=:id");
+            $stmt->bindParam(':id', $_GET["id"]);
+            $stmt->bindParam(':nazev', $_POST["nazev"]);
+            $stmt->bindParam(':reziser', $_POST["reziser"]);
+            $stmt->bindParam(':rok_vydani', $_POST["rok_vydani"]);
+            $stmt->bindParam(':popis', $_POST["popisek"]);
+            $stmt->execute();
+        } else {
+            $data = file_get_contents($_FILES["img"]["tmp_name"]);
+            $stmt = $conn->prepare("UPDATE film SET nazev = :nazev, reziser = :reziser,
+ rok_vydani = :rok_vydani, obrazek = :obr, popisek_filmu = :popis WHERE id=:id");
+            $stmt->bindParam(':id', $_GET["id"]);
+            $stmt->bindParam(':nazev', $_POST["nazev"]);
+            $stmt->bindParam(':reziser', $_POST["reziser"]);
+            $stmt->bindParam(':rok_vydani', $_POST["rok_vydani"]);
+            $stmt->bindParam(':obr',  $data);
+            $stmt->bindParam(':popis', $_POST["popisek"]);
+            $stmt->execute();
+        }
     }
 }
 
@@ -58,10 +71,13 @@ if (!empty($errorFeedbacks)) {
         $data = $conn->query("SELECT * FROM film WHERE id = $id_filmu")->fetch();
         ?>
 
-        <form method="post" class="form_align">
-            <input type="text" name="nazev" value="<?php echo $data[nazev] ?>">
-            <input type="text" name="reziser" value="<?php echo $data[reziser] ?>">
-            <input type="text" name="rok_vydani" value="<?php echo $data[rok_vydani] ?>">
+        <form method="post" class="form_align" enctype="multipart/form-data">
+            <input type="text" name="nazev" value="<?php echo $data["nazev"] ?>">
+            <input type="text" name="reziser" value="<?php echo $data["reziser"] ?>">
+            <input type="text" name="rok_vydani" value="<?php echo $data["rok_vydani"] ?>"> <br>
+            <?php echo '<img width="80px" src="data:image/jpeg;base64,' . base64_encode( $data['obrazek'] ) . '" />'; ?>
+            <input type="file" name="img"> <br>
+            <textarea name="popisek" cols="40" rows="4"><?php echo $data["popisek_filmu"] ?></textarea> <br>
             <input type="submit" name="isSubmitted" value="Uložit">
         </form>
 

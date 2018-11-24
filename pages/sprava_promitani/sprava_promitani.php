@@ -68,9 +68,8 @@
         $conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME, DB_USER, DB_PASSWORD);
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        $data = $conn->query("SELECT promitani.id, promitani.zacatek, promitani.datum,
-        promitani.cena_dospely, promitani.cena_dite, film.nazev FROM promitani 
-        JOIN film on promitani.id_film = film.id")->fetchAll();
+        $data = $conn->query("SELECT promitani.id, promitani.zacatek, promitani.datum, film.nazev FROM promitani
+JOIN film on promitani.id_film = film.id")->fetchAll();
         echo '<table class="table_vypis">';
 
         echo '  
@@ -95,8 +94,8 @@
     <td >' . $row["datum"] . '</td > 
     <td >' . $row["nazev"] . '</td >
     <td class="td_upravit">
-        <a class="update_btn" href="?dir=sprava_promitani&page=update&id='.$row["id"].'">Update</a>
-        <a class="delete_btn" href="?dir=sprava_promitani&page=odebrat&id='.$row["id"].'">Delete</a>
+        <a class="update_btn" href="?page=sprava_promitani&action=update&id='.$row["id"].'">Update</a>
+        <a class="delete_btn" href="?page=sprava_promitani&action=delete&id='.$row["id"].'">Delete</a>
     </td>
   </tr >';
 

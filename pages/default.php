@@ -1,9 +1,7 @@
 <section id="hero">
     <div>
         <h1 id="hero_text">Kino Vlašim</h1>
-        <div class="zank_div">
-            <a href="https://www.mesto-vlasim.cz/" target="_blank"><img src="img/znak_mesta.png" alt="znak mesta" id="znak_img"></a>
-        </div>
+        <a href="https://www.mesto-vlasim.cz/" id="znak_a" target="_blank"><img src="img/znak_mesta.png" alt="znak mesta" id="znak_img"></a>
     </div>
 </section>
 

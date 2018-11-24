@@ -28,24 +28,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME, DB_USER, DB_PASSWORD);
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        $email_verify = $_POST["email"];
-        $verify = $conn->query("SELECT id FROM uzivatel WHERE email = '".$email_verify."'")->fetch();
-
-        if(empty($verify)) {
-            //https://www.youtube.com/watch?v=xLmJeIwOHdI
-            $heslo = $_POST["heslo"];
-            $hash = password_hash($heslo, PASSWORD_DEFAULT);
-
-            $stmt = $conn->prepare("INSERT INTO uzivatel (jmeno, prijmeni, email, den_registrace, role, heslo)
-        VALUES (:jmeno, :prijmeni, :email, NOW(), 'U', :heslo)");
-            $stmt->bindParam(':email', $_POST["email"]);
-            $stmt->bindParam(':jmeno', $_POST["jmeno"]);
-            $stmt->bindParam(':prijmeni', $_POST["prijmeni"]);
-            $stmt->bindParam(':heslo', $hash);
-            $stmt->execute();
-        } else {
-            echo 'zadaný email již někdo používá';
-        }
+        $stmt = $conn->prepare("INSERT INTO uzivatel (jmeno, prijmeni, email, den_registrace, role, heslo)
+    VALUES (:jmeno, :prijmeni, :email, NOW(), 'U', :heslo)");
+        $stmt->bindParam(':email', $_POST["email"]);
+        $stmt->bindParam(':jmeno', $_POST["jmeno"]);
+        $stmt->bindParam(':prijmeni', $_POST["prijmeni"]);
+        $stmt->bindParam(':heslo', $_POST["heslo"]);
+        $stmt->execute();
+        $successFeedback = "User was added";
     }
 }
 

@@ -18,25 +18,23 @@ if (!empty($_POST) && !empty($_POST["loginMail"]) && !empty($_POST["loginPasswor
     $conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME, DB_USER, DB_PASSWORD);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    $stmt = $conn->prepare("SELECT id, email, role, heslo FROM uzivatel WHERE email= :email");
+    $stmt = $conn->prepare("SELECT id, email, role FROM uzivatel WHERE email= :email and heslo = :password");
     $stmt->bindParam(':email', $_POST["loginMail"]);
+    $stmt->bindParam(':password', $_POST["loginPassword"]);
     $stmt->execute();
 
     $user = $stmt->fetch();
-
     if (!$user) {
-        echo "Nesprávně zadaný email";
-    } elseif(!(password_verify($_POST["loginPassword"], $user["heslo"]))) {
-        echo "Nesprávné heslo";
-    }
-    else {
+        echo "user not found";
+    } else {
         echo "you are logged in. Your ID is: " . $user["id"];
         $_SESSION["user_id"] = $user["id"];
+        $_SESSION["user_name"] = $user["username"];
         $_SESSION["user_email"] = $user["email"];
         $_SESSION["user_role"] = $user["role"];
         header("Location:" . BASE_URL);
     }
 } else if (!empty($_POST)) {
-    echo "Nebylo zadáno heslo nebo email.";
+    echo "Username and password are required";
 }
 ?>

@@ -4,36 +4,30 @@
             <h1>Právě v našem kině</h1>
         </div>
 
-        <div class="inline">
-            <div class="program_align">
-                <div class="program_img_div">
-                    <img src="/IWWW_sem/img/it.jpg" alt="TO" class="program_img">
-                </div>
-                <div class="program_popis_div">
-                    <ul class="program_list">
-                        <li><h3>TO</h3></li>
-                        <li>Režie: Andy Muschietti</li>
-                        <li>Rok vydání: 2018</li>
-                        <li>Sem nějak hodnocení podle hvězdiček</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+        <?php
 
-        <div class="inline">
-            <div class="program_align">
-                <div class="program_img_div">
-                    <img src="/IWWW_sem/img/hacksaw_ridge.png" alt="hacksaw_ridge" class="program_img">
-                </div>
-                <div class="program_popis_div">
-                    <ul class="rounded-list">
-                        <li><h3>Hacksaw Ridge</h3></li>
-                        <li>Režie: Mel Gibson</li>
-                        <li>Rok vydání: 2017</li>
-                        <li>Sem nějak hodnocení podle hvězdiček</li>
-                    </ul>
-                </div>
-            </div>
+        $conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME, DB_USER, DB_PASSWORD);
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        $data = $conn->query("SELECT * FROM film")->fetchAll();
+        foreach ($data as $row) {
+            echo '<div class="inline">
+                    <div class="program_align">
+                        <div class="program_img_div">';
+                            echo '<img alt="' . $row["nazev"] . '" class="program_img" src="data:image/jpeg;base64,' . base64_encode($row['obrazek']) . '" />';
+                        echo '</div>
+                        <div class="program_popis_div">
+                            <ul class="program_list">';
+                                echo '<li><h3>'.$row["nazev"].'</h3></li>';
+                                echo '<li>Režie: '.$row["reziser"].'</li>';
+                                echo '<li>Rok vydání: '.$row["rok_vydani"].'</li>';
+                                echo '<li>'.$row["popisek_filmu"].'</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>';
+        }
+        ?>
+
         </div>
-    </div>
 </main>

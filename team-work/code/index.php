@@ -18,18 +18,19 @@ include "pages/config.php"; // include configu
             <a href="<?=BASE_URL ?>">Hlavní stránka</a>
             <a href="<?=BASE_URL . "?page=informace" ?>">Informace</a>
             <a href="<?=BASE_URL . "?page=program" ?>">Program</a>
-            <a href="<?=BASE_URL . "?page=rezervace" ?>">Rezervace</a>
+            <a href="<?=BASE_URL . "?dir=rezervace&page=rezervace" ?>">Rezervace</a>
             <a href="#">Hodnocení</a>
 
             <?php if(empty($_SESSION["user_id"])) { ?>
-            <a href="<?=BASE_URL . "?page=login" ?>">Login</a>
+                    <a href="<?=BASE_URL . "?page=login" ?>">Login</a>
             <?php } else { ?>
-            <a href="<?=BASE_URL . "?page=logout" ?>">Logout</a>
+                    <a href="<?=BASE_URL . "?page=logout" ?>">Logout</a>
             <?php } ?>
 
             <?php if($_SESSION["user_role"] == "A") { ?>
-                <a href="<?=BASE_URL . "?page=sprava_filmu" ?>">Správa filmů</a>
-                <a href="<?=BASE_URL . "?page=sprava_promitani" ?>">Správa promítání</a>
+                <a href="<?=BASE_URL . "?dir=sprava_filmu&page=pridani" ?>">Filmy</a>
+                <a href="<?=BASE_URL . "?dir=sprava_promitani&page=sprava_promitani" ?>">Promítání</a>
+                <a href="<?=BASE_URL . "?dir=sprava_uzivatelu&page=pridani" ?>">Uživatelé</a>
             <?php } ?>
 
         </nav>
@@ -37,16 +38,13 @@ include "pages/config.php"; // include configu
 </header>
 
 <?php
-if ($_GET["page"] == "sprava_filmu") {
-    if($_GET["action"] == "delete"){
-        include "pages/sprava_filmu/odebrat.php";
-    } else if($_GET["action"] == "update"){
-        include "pages/sprava_filmu/update.php";
+if(isset($_GET["dir"])) {
+    $file = "./pages/" . $_GET["dir"] . "/" . $_GET["page"] . ".php";
+    if(file_exists($file)) {
+        include $file;
     } else {
-        include "pages/sprava_filmu/pridani.php";
+        include "pages/default.php";
     }
-} elseif ($_GET["page"] == "sprava_promitani") {
-    include "pages/sprava_promitani/sprava_promitani.php";
 } else {
     $file = "./pages/" . $_GET["page"] . ".php";
     if(file_exists($file)) {

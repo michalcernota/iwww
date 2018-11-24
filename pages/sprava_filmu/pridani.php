@@ -17,11 +17,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         array_push($errorFeedbacks, $feedbackMessage);
     }
 
-    if($_FILES['img']['size'] == 0) {
-        $feedbackMessage = "Obrázek nebyl načten.";
-        array_push($errorFeedbacks, $feedbackMessage);
-    }
-
     if (empty($errorFeedbacks)) {
         //success
         $conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME, DB_USER, DB_PASSWORD);
@@ -30,17 +25,31 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         /*
          https://www.youtube.com/watch?v=XfobCv4YBdk
          */
-        $data = file_get_contents($_FILES["img"]["tmp_name"]);
+        $name = $_FILES["img"]["name"];
+        $type = $_FILES["img"]["type"];
+        $data = file_get_contents($_FILES["img"]["tmp_name"]); /*tady je prej chyba*/
 
-        $stmt = $conn->prepare("INSERT INTO film (nazev, reziser, rok_vydani, obrazek, popisek_filmu)
-    VALUES (:nazev, :reziser, :rok_vydani, :obr, :popis)");
+        if(isset($_FILES["img"])){
+            echo 'soubor nahrán';
+            echo $name;
+            echo $type;
+        }
+
+        if($_FILES['img']['size'] == 0) {
+            echo $name;
+            echo $type;
+            echo $_FILES["img"]['name'];
+            echo 'obrázek má velikost 0';
+        }
+
+        /*$stmt = $conn->prepare("INSERT INTO film (nazev, reziser, rok_vydani, obrazek)
+    VALUES (:nazev, :reziser, :rok_vydani, :obr)");
         $stmt->bindParam(':nazev', $_POST["nazev"]);
         $stmt->bindParam(':reziser', $_POST["reziser"]);
         $stmt->bindParam(':rok_vydani', $_POST["rok_vydani"]);
         $stmt->bindParam(':obr',  $data);
-        $stmt->bindParam(':popis', $_POST["popisek"]);
-        $stmt->execute();
-    }
+        $stmt->execute();*/
+        }
 }
 
 ?>
@@ -63,8 +72,7 @@ if (!empty($errorFeedbacks)) {
             <input type="text" name="nazev" placeholder="Název filmu">
             <input type="text" name="reziser" placeholder="Jméno režiséra">
             <input type="text" name="rok_vydani" placeholder="Rok vydání">
-            <input type="file" name="img"> <br>
-            <textarea name="popisek" cols="40" rows="4" placeholder="Stručný popis filmu"></textarea> <br>
+            <input type="file" name="img">
             <input type="submit" name="isSubmitted" value="Přidat">
         </form>
 
@@ -98,19 +106,13 @@ if (!empty($errorFeedbacks)) {
     <td >' . $row["reziser"] . '</td > 
     <td >' . $row["rok_vydani"] . '</td >
     <td class="td_upravit">
-        <a class="update_btn" href="?dir=sprava_filmu&page=update&id='.$row["id"].'">Update</a>
-        <a class="delete_btn" href="?dir=sprava_filmu&page=odebrat&id='.$row["id"].'">Delete</a>
+        <a class="update_btn" href="?page=sprava_filmu&action=update&id='.$row["id"].'">Update</a>
+        <a class="delete_btn" href="?page=sprava_filmu&action=delete&id='.$row["id"].'">Delete</a>
     </td>
   </tr >';
 
         }
         echo '</table>';
-
-        $obr = $conn->query("SELECT * FROM film where id = 1")->fetchAll();
-        foreach ($obr as $row) {
-            echo '<img src="data:image/jpeg;base64,' . base64_encode( $row['obrazek'] ) . '" />';
-        }
-
         ?>
 
     </div>

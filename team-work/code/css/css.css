@@ -216,6 +216,9 @@ footer {
 }
 
 #znak_img {
+    padding: 5px;
+    border-radius: 5px;
+    background-color: white;
     width: 150px;
     height: 180px;
     transition: ease-in-out .2s;
@@ -362,4 +365,69 @@ https://www.jakpsatweb.cz/css/box-shadow.html
 
 .add_btn_div:hover {
     background-color: darkorange;
+}
+
+.alert_div {
+    width: 70%;
+    line-height: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 200px;
+    text-align: center;
+    font-weight: bold;
+    background-color: #ff0000;
+    color: #ffffff;
+    font-size: 20px;
+    border-radius: 10px;
+}
+
+.alert_div a {
+    text-decoration: none;
+    padding: 10px;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.rezervace_row_div {
+    background-color: gainsboro;
+    margin-bottom: 1px;
+    width: 80%;
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+}
+
+.rezervace_seat_div {
+    background-color: darkorange;
+    border-radius: 5px;
+    margin: 5px;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+}
+
+.rezervace_seat_div:hover {
+    box-shadow: -1px -1px 2px 2px rgba(0, 0, 0, 0.4);
+}
+
+.rezervace_seat_div:hover {
+    box-shadow: -1px -1px 2px 2px rgba(0, 0, 0, 0.4);
+}
+
+.rezervace_rada_div {
+    border-radius: 5px;
+    background-color: #F5F5F5;
+    margin: 5px 70px 5px 5px;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+}
+
+.kino_div {
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
 }

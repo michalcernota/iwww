@@ -431,3 +431,50 @@ https://www.jakpsatweb.cz/css/box-shadow.html
     margin-right: auto;
     width: 70%;
 }
+
+.zabrane_sedadlo {
+    background-color: #4a4a4a;
+    color: #ffcc00;
+    margin: 2px;
+    border-radius: 5px;
+    width: 35px;
+    height: 35px;
+    line-height: 32px;
+}
+
+.volne_sedadlo {
+    background-color: #ffcc00;
+    color: black;
+    margin: 2px;
+    width: 35px;
+    height: 35px;
+    line-height: 32px;
+    border-radius: 5px;
+}
+
+.vybrane_sedadlo {
+    background-color: green;
+    color: black;
+    margin: 2px;
+    width: 35px;
+    height: 35px;
+    line-height: 32px;
+    border-radius: 5px;
+}
+
+.volne_sedadlo:hover {
+    background-color: darkorange;
+}
+
+.JSON_btn {
+    text-decoration: none;
+    padding: 10px;
+    width: 30px;
+    background-color: #ffcc00;
+    color: white;
+    border-radius: 5px;
+}
+
+.JSON_btn:hover {
+    background-color: darkorange;
+}

@@ -1,35 +1,26 @@
-<?php
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-header(BASE_URL."?page=sprava_promitani&action=delete");
-echo 'neco';
-}
-
-
-?>
-
 <main>
     <div class="align_center">
         <div class="margin_top">
             <h1>Rezervace</h1>
         </div>
 
-        <?php
-        $conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME, DB_USER, DB_PASSWORD);
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+<?php
+$conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME, DB_USER, DB_PASSWORD);
+$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        $id = $_GET["id"];
+$id = $_GET["id"];
 
         $data = $conn->query("SELECT promitani.zacatek, promitani.datum, film.nazev,
 promitani.id_film, promitani.cena_dospely, promitani.cena_dite FROM promitani
 JOIN film on promitani.id_film = film.id WHERE promitani.id = ".$id."")->fetch();
 
-        //echo $data["zacatek"] . '<br>';
-        //echo $data["datum"] . '<br>';
-        //echo $data["nazev"] . '<br>';
-        //echo $data["cena_dite"];
+//echo $data["zacatek"] . '<br>';
+//echo $data["datum"] . '<br>';
+//echo $data["nazev"] . '<br>';
+//echo $data["cena_dite"];
 
 echo '
-    <form class="rezervace_pocet" method="get">
+    <form class="rezervace_pocet" method="post">
         <table>
             <tr>
                 <th>Typ</th>
@@ -69,19 +60,19 @@ echo '
     </form>
 ';
 
-    echo "<div class='kino_div'>";
-    for ($i = 0; $i < 10; $i++) {
-        echo "<div class='rezervace_row_div'>";
-        $ipom = $i + 1;
-        echo '<div class="rezervace_rada_div">'.$ipom.'</div>';
-        for ($j = 0; $j < 8; $j++) {
-            $jpom = $j + 1;
-            echo '<div class="rezervace_seat_div">'.$jpom.'</div>';
-        }
-        echo "</div>";
-    }
-    echo "</div>";
-?>
+//print_r($_SESSION);
 
-    </div>
-</main>
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if(isset($_SESSION['sedadla'])) {
+        unset($_SESSION['sedadla']);
+        unset($_SESSION['dospelych']);
+        unset($_SESSION["deti"]);
+    }
+
+    $_SESSION['dospelych'] = $_POST['dospely_pocet'];
+    $_SESSION['deti'] = $_POST['deti_pocet'];
+    $_SESSION['film_id'] = $id;
+
+    header("Location:" . BASE_URL . '?dir=rezervace&page=rezervace_sedadla');
+}
+?>

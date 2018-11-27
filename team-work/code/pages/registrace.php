@@ -2,7 +2,6 @@
 $errorFeedbacks = array();
 $successFeedback = "";
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    //todo more validation rules
     if (empty($_POST["jmeno"])) {
         $feedbackMessage = "Nebylo zadáno jméno.";
         array_push($errorFeedbacks, $feedbackMessage);

@@ -266,12 +266,17 @@ footer {
 
 .table_vypis th {
     border-bottom: 3px solid black;
+    padding: 3px;
 }
 
 .td_upravit {
     text-align: left;
     width: 150px;
     background-color: #F5F5F5;
+}
+
+.td_wider {
+    width: 150px;
 }
 
 .td_upravit a {
@@ -477,4 +482,9 @@ https://www.jakpsatweb.cz/css/box-shadow.html
 
 .JSON_btn:hover {
     background-color: darkorange;
+}
+
+.ikona {
+    max-width: 50px;
+    max-height: 100px;
 }

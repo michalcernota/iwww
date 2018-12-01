@@ -35,7 +35,7 @@ Vybrané místo: <button class="vybrane_sedadlo">1</button>';
                 $jpom = $j + 1;
                 $shoda = false;
                 foreach ($zabrana_sedadla as $row) {
-                    if($row["rada"] == $i && $row["sedadlo"] == $j) {
+                    if($row["rada"] == $ipom && $row["sedadlo"] == $jpom) {
                         $shoda = true;
                     }
                 }
@@ -91,7 +91,6 @@ if(!empty($_POST)) {
         $output = $_POST["reservations"];
         $reservations_array = json_decode($output);
 
-
         $conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME, DB_USER, DB_PASSWORD);
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
@@ -108,8 +107,7 @@ if(!empty($_POST)) {
         }
 
         //$_SESSION['reserved_seats'] = $reservations_array;
-        //var_dump($reservations_array);
-        //header("Location:" . BASE_URL . '?dir=rezervace&page=rezervace_pdf');
+        header("Location:" . BASE_URL . '?dir=rezervace&page=rezervace_konec');
     }
 }
 ?>

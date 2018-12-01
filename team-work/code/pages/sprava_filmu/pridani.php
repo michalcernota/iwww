@@ -79,6 +79,7 @@ if (!empty($errorFeedbacks)) {
         echo '  
   <tr>
     <th>ID</th>
+    <th>Poster</th>
     <th>Název</th> 
     <th>Režisér</th>
     <th>Rok vydání</th>
@@ -94,6 +95,7 @@ if (!empty($errorFeedbacks)) {
             $count = $count+1;
             echo '
     <td >' . $row["id"] . '</td >
+    <td ><img class="ikona" src="data:image/jpeg;base64,' . base64_encode( $row['obrazek'] ) . '" /></td >
     <td >' . $row["nazev"] . '</td > 
     <td >' . $row["reziser"] . '</td > 
     <td >' . $row["rok_vydani"] . '</td >
@@ -108,12 +110,6 @@ if (!empty($errorFeedbacks)) {
 
         //jen pdkaz
         echo '<a href="/IWWW_sem/team-work/code/pages/sprava_filmu/json_handler.php" class="JSON_btn">JSON</a>';
-
-        $obr = $conn->query("SELECT * FROM film where id = 1")->fetchAll();
-        foreach ($obr as $row) {
-            echo '<img src="data:image/jpeg;base64,' . base64_encode( $row['obrazek'] ) . '" />';
-        }
-
         ?>
 
     </div>

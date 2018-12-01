@@ -31,6 +31,7 @@ include "pages/config.php"; // include configu
                 <a href="<?=BASE_URL . "?dir=sprava_filmu&page=pridani" ?>">Filmy</a>
                 <a href="<?=BASE_URL . "?dir=sprava_promitani&page=sprava_promitani" ?>">Promítání</a>
                 <a href="<?=BASE_URL . "?dir=sprava_uzivatelu&page=pridani" ?>">Uživatelé</a>
+                <a href="<?=BASE_URL . "?dir=sprava_vstupenek&page=zobrazeni" ?>">Vstupenky</a>
             <?php } ?>
 
         </nav>

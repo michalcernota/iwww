@@ -67,38 +67,30 @@ if (!empty($errorFeedbacks)) {
 <main>
     <div class="align_center">
         <div class="margin_top">
-            <h1>Správa uživatelů</h1>
+            <h1>Správa vstupenek</h1>
         </div>
-        <form method="post" class="form_align" enctype="multipart/form-data">
-            <input type="text" name="jmeno" placeholder="Jméno">
-            <input type="text" name="prijmeni" placeholder="Příjmení">
-            <input type="email" name="email" placeholder="Email">
-            <input type="text" name="heslo" placeholder="Heslo">
-            <input list="role_list" name="role" placeholder="Výběr role">
-            <input type="submit" name="isSubmitted" value="Přidat">
-        </form>
-
-        <datalist id="role_list">
-            <option value="U">
-            <option value="A">
-        </datalist>
-
 
         <?php
         $conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME, DB_USER, DB_PASSWORD);
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        $data = $conn->query("SELECT * FROM uzivatel")->fetchAll();
+        $data = $conn->query("SELECT vstupenka.id, vstupenka.rada, vstupenka.sedadlo,
+        uzivatel.email, promitani.datum, promitani.zacatek, film.nazev FROM vstupenka 
+        JOIN uzivatel on vstupenka.id_uzivatel = uzivatel.id
+        JOIN promitani on vstupenka.id_promitani = promitani.id
+        JOIN film on promitani.id_film = film.id")->fetchAll();
         echo '<table class="table_vypis">';
 
         echo '  
   <tr>
     <th>ID</th>
-    <th>Jméno</th> 
-    <th>Příjmení</th>
-    <th>Email</th>
-    <th>Den registrace</th>
-    <th>Role</th>
+    <th>Řada</th> 
+    <th>Sedadlo</th>
+    <th>Uživatel</th>
+    <th>Datum promítání</th>
+    <th>Začátek promítání</th>
+    <th>Film</th>
+    ' . '
   </tr>';
 
         $count = 1;
@@ -109,16 +101,18 @@ if (!empty($errorFeedbacks)) {
                 echo '<tr class="background_white">';
             }
             $count = $count+1;
+
             echo '
     <td >' . $row["id"] . '</td >
-    <td >' . $row["jmeno"] . '</td > 
-    <td >' . $row["prijmeni"] . '</td > 
+    <td >' . $row["rada"] . '</td > 
+    <td >' . $row["sedadlo"] . '</td > 
     <td >' . $row["email"] . '</td >
-    <td >' . $row["den_registrace"] . '</td >
-    <td >' . $row["role"] . '</td >
+    <td >' . $row["datum"] . '</td >
+    <td >' . $row["zacatek"] . '</td >
+    <td class="td_wider">' . $row["nazev"] . '</td >
     <td class="td_upravit">
-        <a class="update_btn" href="?dir=sprava_uzivatelu&page=update&id='.$row["id"].'">Update</a>
-        <a class="delete_btn" href="?dir=sprava_uzivatelu&page=odebrat&id='.$row["id"].'">Delete</a>
+        <a class="update_btn" href="?dir=sprava_vstupenek&page=update&id='.$row["id"].'">Update</a>
+        <a class="delete_btn" href="?dir=sprava_vstupenek&page=odebrat&id='.$row["id"].'">Delete</a>
     </td>
   </tr >';
 

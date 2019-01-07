@@ -1,0 +1,87 @@
+CREATE SCHEMA iwww_sem;
+
+CREATE TABLE uzivatel
+(
+    id int PRIMARY KEY AUTO_INCREMENT,
+    jmeno varchar(20) NOT NULL,
+    prijmeni varchar(20) NOT NULL,
+    heslo varchar2(50) NOT NULL,
+    email varchar(40) NOT NULL,
+    den_registrace date NOT NULL,
+    role char NOT NULL
+);
+
+CREATE TABLE vstupenka
+(
+    id int PRIMARY KEY NOT NULL,
+    rada numeric NOT NULL,
+    sedadlo numeric NOT NULL,
+    id_promitani int NOT NULL,
+    id_uzivatel int NOT NULL,
+    CONSTRAINT vstupenka_promitani_id_fk FOREIGN KEY (id_promitani) REFERENCES promitani (id),
+    CONSTRAINT vstupenka_uzivatel_id_fk FOREIGN KEY (id_uzivatel) REFERENCES uzivatel (id)
+);
+
+CREATE TABLE promitani
+(
+    id int PRIMARY KEY AUTO_INCREMENT,
+    zacatek varchar(10) NOT NULL,
+    datum date NOT NULL
+);
+
+ALTER TABLE promitani ADD id_film int NOT NULL;
+ALTER TABLE promitani ADD cena_dospely numeric(3) DEFAULT 80 NULL;
+ALTER TABLE promitani ADD cena_dite numeric(3) DEFAULT 60 NULL;
+
+CREATE TABLE film
+(
+    id int PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    nazev varchar(40) NOT NULL,
+    reziser varchar(60) NOT NULL,
+    rok_vydani numeric NOT NULL
+);
+
+ALTER TABLE promitani
+ADD CONSTRAINT promitani_film_id_fk
+FOREIGN KEY (id_film) REFERENCES film (id);
+
+ALTER TABLE film MODIFY obrazek mediumblob NOT NULL;
+
+ALTER TABLE film ADD popisek_filmu varchar(500) NULL;
+
+ALTER TABLE vstupenka MODIFY id int(11) NOT NULL auto_increment;
+
+ALTER TABLE vstupenka ADD CONSTRAINT vstupenka_pk UNIQUE (id, rada, sedadlo);
+
+CREATE UNIQUE INDEX uzivatel_heslo_uindex ON uzivatel (heslo);
+
+CREATE TABLE hodnoceni
+(
+    id int PRIMARY KEY,
+    rating numeric(3) NOT NULL,
+    id_film int NOT NULL,
+    id_uzivatel int NOT NULL
+);
+
+ALTER TABLE hodnoceni
+ADD CONSTRAINT hodnoceni_film_id_fk
+FOREIGN KEY (id_film) REFERENCES film (id);
+
+ALTER TABLE hodnoceni
+ADD CONSTRAINT hodnoceni_uzivatel_id_fk
+FOREIGN KEY (id_uzivatel) REFERENCES uzivatel (id);
+
+
+CREATE TABLE sal
+(
+    id int PRIMARY KEY AUTO_INCREMENT,
+    rad numeric(2) NOT NULL,
+    sloupcu numeric(2) NOT NULL
+);
+
+ALTER TABLE promitani MODIFY id_sal int NOT NULL;
+ALTER TABLE promitani ALTER COLUMN id_sal SET DEFAULT 1;
+
+ALTER TABLE promitani
+ADD CONSTRAINT promitani_sal_id_fk
+FOREIGN KEY (id_sal) REFERENCES sal (id);
